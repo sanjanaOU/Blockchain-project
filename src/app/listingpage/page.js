@@ -8,13 +8,13 @@ import React, { useState, useRef } from 'react';
 const Wal = () => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [image, setImage] = useState(null);
-    const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef(null); // Reference to the file input
     const [transaction,setTransaction]=useState('');
+    const [price, setPrice] = useState('');
+    const [image, setImage] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const onImageChange = (event) => {
         setImage(event.target.files[0]);
@@ -34,7 +34,7 @@ const Wal = () => {
             return response.data.IpfsHash;
         } catch (error) {
             console.error('Error uploading image to Pinata: ', error);
-            setErrorMessage('Failed to upload image to Pinata.');
+            setErrorMessage('cannot upload image.');
             return null;
         }
     };
@@ -42,7 +42,7 @@ const Wal = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!window.ethereum || !window.ethereum.isMetaMask) {
-            setErrorMessage('MetaMask is not detected.');
+            setErrorMessage('cannot find metamask.');
             return;
         }
 
@@ -61,7 +61,7 @@ const Wal = () => {
             await transaction.wait();
             const receipt =await transaction.wait();
             setTransaction(receipt.transactionHash);
-            setSuccessMessage('Item listed successfully!');
+            setSuccessMessage('Product added!');
             setTitle('');
             setDescription('');
             setPrice('');
@@ -72,7 +72,7 @@ const Wal = () => {
             setTimeout(() => { setSuccessMessage(''); }, 3000);
         } catch (error) {
             console.error('Error processing transaction: ', error);
-            setErrorMessage('Transaction failed: ' + error.message);
+            setErrorMessage('Err!Transaction failed: ' + error.message);
         } finally {
             setIsLoading(false);
         }
@@ -111,7 +111,7 @@ const Wal = () => {
                 <button type="submit"
                         disabled={isLoading}
                         className={`shadow focus:shadow-outline focus:outline-none font-bold py-2 px-4 ${isLoading ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : 'bg-pink-500 hover:bg-pink-400 text-white'}`}>
-                    {isLoading ? 'Processing...' : 'List Item'}
+                    {isLoading ? 'In progress...' : 'List Item'}
                 </button>
                 {<p className ="text-red-200 text-center mt-4">{transaction}</p>}
             </div>

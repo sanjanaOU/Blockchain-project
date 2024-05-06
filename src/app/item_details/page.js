@@ -1,24 +1,24 @@
 "use client"
 import React, { useState, Suspense } from 'react';
-import { ethers } from "ethers";
 import { contractABI, contractAddress } from "../../../utils/constants";
 import { useSearchParams } from "next/navigation";
+import { ethers } from "ethers";
 
-const ItemDetails = () => {
+const Iteminfo = () => {
     const [isBuying, setIsBuying] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const [transactionHash, setTransactionHash]=useState('');
+    const [transacth, setTransactionHash]=useState('');
     const [buttonText, setButtonText] = useState('Buy Item');
 
   
     const buyItem = async (id, price) => {
         if (!window.ethereum || !window.ethereum.isMetaMask) {
-            setErrorMessage('Please install MetaMask to perform the transaction.');
+            setErrorMessage('Err!!! Install Metamask Properly.');
             return;
         }
 
         setIsBuying(true);
-        setButtonText('Processing...');
+        setButtonText('in progress...');
 
         try {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -28,15 +28,15 @@ const ItemDetails = () => {
 
             const transaction = await contract.buyItem(id, {value:new_price});
             const receipt =await transaction.wait();
-            setTransactionHash(receipt.transactionHash);
+            setTransactionHash(receipt.transacth);
 
             setIsBuying(true);
             setTimeout(() => window.location.href = '/buying', 3000);  // Redirect after success message
         } catch (error) {
             console.error('Transaction failed:', error);
-            setErrorMessage('Transaction failed. Please try again.');
+            setErrorMessage('Please try again.');
             setIsBuying(false);
-            setButtonText('Buy Item');
+            setButtonText('purchase');
         }
     };
     const SearchParamsComponent =() =>{
@@ -61,7 +61,7 @@ const ItemDetails = () => {
                 disabled={isBuying}>
                 {buttonText}
             </button>
-            {transactionHash && <p className="text-red-500 text-center mt-2">Success{transactionHash}</p>}
+            {transacth && <p className="text-red-500 text-center mt-2">Success{transactionHash}</p>}
         </React.Fragment>
     );
 };
@@ -86,4 +86,4 @@ return (
 </div>)
 };
 
-export default ItemDetails;
+export default Iteminfo;

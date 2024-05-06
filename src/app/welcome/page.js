@@ -2,25 +2,25 @@
 "use client"
 import React, { useState } from 'react';
 import { ethers } from "ethers";
-import { contractABI, contractAddress } from '../../../utils/constants';
 import Link from 'next/link';
+import { contractABI, contractAddress } from '../../../utils/constants';
 
 const Wal = () => {
     const [errorMessage, setErrorMessage] = useState(null);
     const [defaultAccount, setDefaultAccount] = useState(null);
-    const [connButtonText, setConnButtonText] = useState('Wallet connection check');
+    const [connButtonText, setConnButtonText] = useState('Wallet connect');
 
     const connectWalletHandler = async () => {
         if (window.ethereum && window.ethereum.isMetaMask) {
             try {
                 const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
                 setDefaultAccount(accounts[0]);
-                setConnButtonText('Wallet Connected');
+                setConnButtonText('connection success');
             } catch (error) {
                 setErrorMessage(error.message);
             }
         } else {
-            setErrorMessage('Please install MetaMask browser extension to interact');
+            setErrorMessage('Please install MetaMask ');
         }
     };
 

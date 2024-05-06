@@ -1,18 +1,18 @@
 "use client"
 import React, { useEffect, useState } from 'react';
-import { ethers } from 'ethers';
 import { contractABI, contractAddress } from '../../../utils/constants';
+import { ethers } from 'ethers';
 
 const PetMarketplace = () => {
-    const [items, setItems] = useState([]);
+    const [product, setItems] = useState([]);
 
     useEffect(() => {
         const fetchItems = async () => {
             const provider = new ethers.providers.Web3Provider(window.ethereum);
             const contract = new ethers.Contract(contractAddress, contractABI, provider);
-            const items = await contract.getAllItems();
-            console.log(items);
-            const itemsFormatted = items.map(item => ({
+            const product = await contract.getAllItems();
+            console.log();
+            const itemsFormatted = product.map(item => ({
                 id: item.id.toNumber(),
                 title: item.title,
                 imageHash: item.imageHash,
@@ -39,7 +39,7 @@ const PetMarketplace = () => {
     <div className="container mx-auto">
         <h1 className="text-3xl font-bold text-pink-500 mb-6" style={{ fontFamily: 'Lobster, cursive' }}>Items for your pets</h1>
         <div className="grid grid-cols-3 gap-4">
-            {items.map((item) => (
+            {product.map((item) => (
                 <div key={item.id} 
                      className={`relative bg-white rounded-lg shadow-lg p-4 ${item.sold ? 'opacity-30 cursor-not-allowed' : 'cursor-pointer hover:bg-pink-100'}`}
                      onClick={() => handleCardClick(item)}>
