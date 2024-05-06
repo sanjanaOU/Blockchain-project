@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 233, 30, 99; /* Vibrant pink for text */
+  --background-end-rgb: 255, 218, 185; /* Peach for background end */
+  --background-start-rgb: 255, 204, 204; /* Light pink for background start */
+  
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 105, 180; /* Hot pink for text in dark mode */
+    --background-end-rgb: 255, 192, 203; /* Pink for background end */
+    --background-start-rgb: 75, 0, 130; /* Indigo */
+  }
+}
+
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
