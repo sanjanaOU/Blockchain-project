@@ -14,6 +14,7 @@ const Wal = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const fileInputRef = useRef(null); // Reference to the file input
+    const [transaction,setTransaction]=useState('');
 
     const onImageChange = (event) => {
         setImage(event.target.files[0]);
@@ -58,6 +59,8 @@ const Wal = () => {
             const marketplaceContract = new ethers.Contract(contractAddress, contractABI, signer);
             const transaction = await marketplaceContract.listItem(title, description, ipfsHash, ethers.utils.parseUnits(price, 'ether'));
             await transaction.wait();
+            const receipt =await transaction.wait();
+            setTransaction(receipt.transactionHash);
             setSuccessMessage('Item listed successfully!');
             setTitle('');
             setDescription('');
@@ -110,6 +113,7 @@ const Wal = () => {
                         className={`shadow focus:shadow-outline focus:outline-none font-bold py-2 px-4 ${isLoading ? 'bg-gray-300 hover:bg-gray-300 cursor-not-allowed' : 'bg-pink-500 hover:bg-pink-400 text-white'}`}>
                     {isLoading ? 'Processing...' : 'List Item'}
                 </button>
+                {<p className ="text-red-200 text-center mt-4">{transaction}</p>}
             </div>
             {errorMessage && <p className="error text-red-500 text-center mt-4">{errorMessage}</p>}
         </form>
