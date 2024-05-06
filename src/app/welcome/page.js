@@ -38,11 +38,11 @@ const Wal = () => {
                      style={{ backgroundColor: 'yellow-500', hover: { backgroundColor: 'yellow-400' } }}>
                  {connButtonText}
              </button>
-             <Link href="/listingpage" passHref className="text-white font-bold py-2 px-4 shadow-lg transition duration-150 ease-in-out text-center"
+             <Link href="/listing" passHref className="text-white font-bold py-2 px-4 shadow-lg transition duration-150 ease-in-out text-center"
                    style={{ backgroundColor: 'yellow-500', hover: { backgroundColor: 'yellow-400' } }}>
                      Add Your Pawsome Stuff Here
              </Link>
-             <Link href="/buying" passHref className="text-white font-bold py-2 px-4 shadow-lg transition duration-150 ease-in-out text-center"
+             <Link href="/buy" passHref className="text-white font-bold py-2 px-4 shadow-lg transition duration-150 ease-in-out text-center"
                    style={{ backgroundColor: 'yellow-500', hover: { backgroundColor: 'yellow-400' } }}>
                  Checkout All The Pawsome Stuff
              </Link>

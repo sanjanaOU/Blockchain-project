@@ -31,7 +31,7 @@ const Iteminfo = () => {
             setTransactionHash(receipt.transacth);
 
             setIsBuying(true);
-            setTimeout(() => window.location.href = '/buying', 3000);  // Redirect after success message
+            setTimeout(() => window.location.href = '/buy', 3000);  // Redirect after success message
         } catch (error) {
             console.error('Transaction failed:', error);
             setErrorMessage('Please try again.');
